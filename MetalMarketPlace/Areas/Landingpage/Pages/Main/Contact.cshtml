@@ -1,0 +1,65 @@
+﻿@page
+@model ContactModel
+@using Microsoft.Extensions.Options
+@using reCAPTCHA.AspNetCore
+@inject IOptions<RecaptchaSettings> RecaptchaSettings
+@{
+    ViewData["Title"] = "Contact us";
+}
+<h1>@ViewData["Title"]</h1>
+<partial name="_StatusMessage" for="StatusMessage" />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-page-handler="Confirmation" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-user-alt"></i></span>
+                    </div>
+                    <input asp-for="Input.Name" placeholder="Name" class="form-control" />
+                    <div class="invalid-feedback" style="display:block;">
+                        <span asp-validation-for="Input.Name" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-at"></i></span>
+                    </div>
+                    <input asp-for="Input.Email" placeholder="Email" class="form-control" />
+                    <div class="invalid-feedback" style="display:block;">
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <input asp-for="Input.Subject" placeholder="Subject" class="form-control" />
+                    <div class="invalid-feedback" style="display:block;">
+                        <span asp-validation-for="Input.Subject" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <textarea cols="60" rows="10" placeholder="Message" asp-for="Input.Message" class="form-control"></textarea>
+                    <div class="invalid-feedback" style="display:block;">
+                        <span asp-validation-for="Input.Message" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    @Html.Recaptcha(RecaptchaSettings.Value)
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

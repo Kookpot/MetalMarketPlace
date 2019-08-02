@@ -12,6 +12,9 @@ using Microsoft.AspNetCore.Identity.UI;
 using MetalMarketPlace.DataLayer;
 using reCAPTCHA.AspNetCore;
 using MetalMarketPlace.ConfigModels;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using MetalMarketPlace.Helpers;
+using MetalMarketPlace.DataLayer.Entities;
 
 namespace MetalMarketPlace
 {
@@ -34,21 +37,90 @@ namespace MetalMarketPlace
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddAuthentication()
+                .AddFacebook(facebookOptions =>
+                {
+                    facebookOptions.AppId = Configuration["FacebookConfiguration:AppId"];
+                    facebookOptions.AppSecret = Configuration["FacebookConfiguration:AppSecret"];
+                })
+                .AddTwitter(twitterOptions =>
+                {
+                    twitterOptions.ConsumerKey = Configuration["TwitterConfiguration:AppId"];
+                    twitterOptions.ConsumerSecret = Configuration["TwitterConfiguration:AppSecret"];
+                })
+                .AddGoogle(options =>
+                {
+                    options.ClientId = Configuration["GoogleConfiguration:AppId"];
+                    options.ClientSecret = Configuration["GoogleConfiguration:AppSecret"];
+                })
+                .AddMicrosoftAccount(microsoftOptions =>
+                {
+                    microsoftOptions.ClientId = Configuration["MicrosoftConfiguration:AppId"];
+                    microsoftOptions.ClientSecret = Configuration["MicrosoftConfiguration:AppSecret"];
+                });
+
             services.Configure<RecaptchaSettings>(Configuration.GetSection("RecaptchaSettings"));
             services.AddTransient<IRecaptchaService, RecaptchaService>();
-            services.AddSingleton<EmailConfiguration>(Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
+            services.AddSingleton(Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
         
             // Add framework services.
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddRazorPagesOptions(options =>
+                {
+                    options.AllowAreas = true;
+                    options.Conventions.AddAreaPageRoute("Landingpage", "/Main/Index", string.Empty);
+                    options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage");
+                    options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
+                });
 
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
                 services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
             else
                 services.AddDbContext<DatabaseContext>(options => options.UseSqlite("Data Source=localdatabase.db"));
 
-            services.AddDefaultIdentity<IdentityUser>()
-               .AddDefaultUI(UIFramework.Bootstrap4)
-               .AddEntityFrameworkStores<DatabaseContext>();
+            services.AddDefaultIdentity<CompanyUser>()
+                .AddDefaultUI(UIFramework.Bootstrap4)
+                .AddEntityFrameworkStores<DatabaseContext>()
+                .AddDefaultTokenProviders();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings.
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 8;
+                options.Password.RequiredUniqueChars = 1;
+                options.SignIn.RequireConfirmedEmail = true;
+                // Lockout settings.
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 3;
+                options.Lockout.AllowedForNewUsers = true;
+
+                options.Tokens.ProviderMap.Add("CustomEmailConfirmation", new TokenProviderDescriptor(typeof(CustomEmailConfirmationTokenProvider<CompanyUser>)));
+                options.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmation";
+
+                // User settings.
+                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.User.RequireUniqueEmail = true;
+            });
+
+            services.AddTransient<CustomEmailConfirmationTokenProvider<CompanyUser>>();
+            services.Configure<DataProtectionTokenProviderOptions>(o => o.TokenLifespan = TimeSpan.FromHours(3));
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(15);
+
+                options.LoginPath = $"/Identity/Account/Login";
+                options.LogoutPath = $"/Identity/Account/Logout";
+                options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+                options.SlidingExpiration = true;
+            });
+
+            services.AddSingleton<IEmailSender, EmailSender>();
 
             services.BuildServiceProvider().GetService<DatabaseContext>().Database.Migrate();
         }
@@ -63,7 +135,7 @@ namespace MetalMarketPlace
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("Landingpage/Main/Error");
                 app.UseHsts();
             }
 
@@ -73,12 +145,7 @@ namespace MetalMarketPlace
 
             app.UseAuthentication();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+            app.UseMvc();
         }
     }
 }

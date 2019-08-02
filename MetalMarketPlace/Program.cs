@@ -80,7 +80,9 @@ namespace MetalMarketPlace
             {
                 options.ValidateScopes = context.HostingEnvironment.IsDevelopment();
             });
+#pragma warning disable CS0436 // Type conflicts with imported type
             builder.UseStartup<Startup>();
+#pragma warning restore CS0436 // Type conflicts with imported type
             return builder;
         }
     }
