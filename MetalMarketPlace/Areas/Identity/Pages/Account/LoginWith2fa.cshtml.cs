@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using MetalMarketPlace.DataLayer.Entities;
@@ -9,6 +6,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using MetalMarketPlace.Areas.Identity.Pages.Account.Models;
+using Microsoft.AspNetCore.Mvc.Localization;
 
 namespace MetalMarketPlace.Areas.Identity.Pages.Account
 {
@@ -17,31 +16,22 @@ namespace MetalMarketPlace.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<CompanyUser> _signInManager;
         private readonly ILogger<LoginWith2faModel> _logger;
+        private readonly IHtmlLocalizer<LoginWith2faModel> _localizer;
 
-        public LoginWith2faModel(SignInManager<CompanyUser> signInManager, ILogger<LoginWith2faModel> logger)
+        public LoginWith2faModel(SignInManager<CompanyUser> signInManager, ILogger<LoginWith2faModel> logger,
+            IHtmlLocalizer<LoginWith2faModel> localizer)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _localizer = localizer;
         }
 
         [BindProperty]
-        public InputModel Input { get; set; }
+        public LoginWith2faInputModel Input { get; set; }
 
         public bool RememberMe { get; set; }
 
         public string ReturnUrl { get; set; }
-
-        public class InputModel
-        {
-            [Required]
-            [StringLength(7, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
-            [DataType(DataType.Text)]
-            [Display(Name = "Authenticator code")]
-            public string TwoFactorCode { get; set; }
-
-            [Display(Name = "Remember this machine")]
-            public bool RememberMachine { get; set; }
-        }
 
         public async Task<IActionResult> OnGetAsync(bool rememberMe, string returnUrl = null)
         {
@@ -85,7 +75,7 @@ namespace MetalMarketPlace.Areas.Identity.Pages.Account
             else
             {
                 _logger.LogWarning("Invalid authenticator code entered for user with ID '{UserId}'.", user.Id);
-                ModelState.AddModelError(string.Empty, "Invalid authenticator code.");
+                ModelState.AddModelError(string.Empty, _localizer.GetString("Invalid authenticator code."));
                 return Page();
             }
         }

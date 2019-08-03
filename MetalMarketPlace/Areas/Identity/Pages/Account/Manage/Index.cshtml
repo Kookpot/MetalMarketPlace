@@ -1,7 +1,8 @@
 ﻿@page
+@inject IViewLocalizer Localizer
 @model IndexModel
 @{
-    ViewData["Title"] = "Profile";
+    ViewData["Title"] = Localizer["Profile"];
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 
@@ -15,7 +16,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fa fa-at"></i></span>
                     </div>
-                    <input asp-for="Input.Email" placeholder="Email" class="form-control" />
+                    <input asp-for="Input.Email" placeholder="@Localizer["Email"]" class="form-control" />
                     <div class="invalid-feedback" style="display:block;">
                         <span asp-validation-for="Input.Email" class="text-danger"></span>
                     </div>

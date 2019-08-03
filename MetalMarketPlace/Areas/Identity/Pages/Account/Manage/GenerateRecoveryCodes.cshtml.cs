@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MetalMarketPlace.DataLayer.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
@@ -13,13 +14,16 @@ namespace MetalMarketPlace.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<CompanyUser> _userManager;
         private readonly ILogger<GenerateRecoveryCodesModel> _logger;
+        private readonly IHtmlLocalizer<GenerateRecoveryCodesModel> _localizer;
 
         public GenerateRecoveryCodesModel(
             UserManager<CompanyUser> userManager,
-            ILogger<GenerateRecoveryCodesModel> logger)
+            ILogger<GenerateRecoveryCodesModel> logger,
+            IHtmlLocalizer<GenerateRecoveryCodesModel> localizer)
         {
             _userManager = userManager;
             _logger = logger;
+            _localizer = localizer;
         }
 
         [TempData]
@@ -32,7 +36,7 @@ namespace MetalMarketPlace.Areas.Identity.Pages.Account.Manage
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound(_localizer.GetString($"Unable to load user with ID '{0}'.", _userManager.GetUserId(User)));
 
             var isTwoFactorEnabled = await _userManager.GetTwoFactorEnabledAsync(user);
             if (!isTwoFactorEnabled)
@@ -48,7 +52,7 @@ namespace MetalMarketPlace.Areas.Identity.Pages.Account.Manage
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound(_localizer.GetString($"Unable to load user with ID '{0}'.", _userManager.GetUserId(User)));
 
             var isTwoFactorEnabled = await _userManager.GetTwoFactorEnabledAsync(user);
             var userId = await _userManager.GetUserIdAsync(user);
@@ -59,7 +63,7 @@ namespace MetalMarketPlace.Areas.Identity.Pages.Account.Manage
             RecoveryCodes = recoveryCodes.ToArray();
 
             _logger.LogInformation("User with ID '{UserId}' has generated new 2FA recovery codes.", userId);
-            StatusMessage = "You have generated new recovery codes.";
+            StatusMessage = _localizer.GetString("You have generated new recovery codes.");
             return RedirectToPage("./ShowRecoveryCodes");
         }
     }

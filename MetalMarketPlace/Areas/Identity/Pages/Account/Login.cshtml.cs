@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using MetalMarketPlace.DataLayer.Entities;
 using Microsoft.AspNetCore.Authentication;
@@ -7,6 +6,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using MetalMarketPlace.Areas.Identity.Pages.Account.Models;
+using Microsoft.AspNetCore.Mvc.Localization;
 
 namespace MetalMarketPlace.Areas.Identity.Pages.Account
 {
@@ -16,40 +17,29 @@ namespace MetalMarketPlace.Areas.Identity.Pages.Account
         private readonly SignInManager<CompanyUser> _signInManager;
         private readonly UserManager<CompanyUser> _userManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly IHtmlLocalizer<LoginModel> _localizer;
 
-        public LoginModel(SignInManager<CompanyUser> signInManager, ILogger<LoginModel> logger, UserManager<CompanyUser> userManager)
+        public LoginModel(SignInManager<CompanyUser> signInManager, ILogger<LoginModel> logger, UserManager<CompanyUser> userManager,
+            IHtmlLocalizer<LoginModel> localizer)
         {
             _signInManager = signInManager;
             _logger = logger;
             _userManager = userManager;
+            _localizer = localizer;
         }
 
         [BindProperty]
-        public InputModel Input { get; set; }
+        public LoginInputModel Input { get; set; }
 
         public string ReturnUrl { get; set; }
 
         [TempData]
         public string ErrorMessage { get; set; }
 
-        public class InputModel
-        {
-            [Required]
-            [EmailAddress]
-            public string Email { get; set; }
-
-            [Required]
-            [DataType(DataType.Password)]
-            public string Password { get; set; }
-
-            [Display(Name = "Remember me?")]
-            public bool RememberMe { get; set; }
-        }
-
         public async Task OnGetAsync(string returnUrl = null)
         {
             if (!string.IsNullOrEmpty(ErrorMessage))
-                ModelState.AddModelError(string.Empty, ErrorMessage);
+                ModelState.AddModelError(string.Empty, _localizer.GetString(ErrorMessage));
 
             returnUrl = returnUrl ?? Url.Content("~/");
 
@@ -85,12 +75,12 @@ namespace MetalMarketPlace.Areas.Identity.Pages.Account
                     var user = await _userManager.FindByEmailAsync(Input.Email);
                     if (user != null && !await _userManager.IsEmailConfirmedAsync(user))
                     {
-                        ModelState.AddModelError(string.Empty, "Emailadress hasn't been confirmed yet.");
+                        ModelState.AddModelError(string.Empty, _localizer.GetString("Emailadress hasn't been confirmed yet."));
                         return Page();
                     }
                     else
                     {
-                        ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                        ModelState.AddModelError(string.Empty, _localizer.GetString("Invalid login attempt."));
                         return Page();
                     }
                 }

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inject IViewLocalizer Localizer
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -31,13 +32,13 @@
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Landingpage" asp-page="/Main/Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="Landingpage" asp-page="/Main/Index">@Localizer["Home"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Landingpage" asp-page="/Main/Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="Landingpage" asp-page="/Main/Privacy">@Localizer["Privacy"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Landingpage" asp-page="/Main/Contact">Contact us</a>
+                            <a class="nav-link text-dark" asp-area="Landingpage" asp-page="/Main/Contact">@Localizer["Contact us"]</a>
                         </li>
                     </ul>
                 </div>
@@ -52,7 +53,14 @@
     </div>
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2019 - MetalMarketPlace - <a asp-area="Landingpage" asp-page="/Main/Privacy">Privacy</a>
+            <div class="row">
+                <div class="col-md-6 text-left">
+                    &copy; 2019 - MetalMarketPlace - <a asp-area="Landingpage" asp-page="/Main/Privacy">@Localizer["Privacy"]</a>
+                </div>
+                <div class="col-md-6 text-right">
+                    <partial name="~/Views/Shared/_SelectLanguagePartial.cshtml" />
+                </div>
+            </div>
         </div>
     </footer>
     <environment include="Development">

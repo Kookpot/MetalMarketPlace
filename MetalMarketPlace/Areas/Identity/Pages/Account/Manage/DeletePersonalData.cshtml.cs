@@ -1,9 +1,10 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using MetalMarketPlace.Areas.Identity.Pages.Account.Manage.Models;
 using MetalMarketPlace.DataLayer.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
@@ -14,26 +15,22 @@ namespace MetalMarketPlace.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<CompanyUser> _userManager;
         private readonly SignInManager<CompanyUser> _signInManager;
         private readonly ILogger<DeletePersonalDataModel> _logger;
+        private readonly IHtmlLocalizer<DeletePersonalDataModel> _localizer;
 
         public DeletePersonalDataModel(
             UserManager<CompanyUser> userManager,
             SignInManager<CompanyUser> signInManager,
-            ILogger<DeletePersonalDataModel> logger)
+            ILogger<DeletePersonalDataModel> logger,
+            IHtmlLocalizer<DeletePersonalDataModel> localizer)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _localizer = localizer;
         }
 
         [BindProperty]
-        public InputModel Input { get; set; }
-
-        public class InputModel
-        {
-            [Required]
-            [DataType(DataType.Password)]
-            public string Password { get; set; }
-        }
+        public DeletePersonalDataInputModel Input { get; set; }
 
         public bool RequirePassword { get; set; }
 
@@ -41,7 +38,7 @@ namespace MetalMarketPlace.Areas.Identity.Pages.Account.Manage
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound(_localizer.GetString("Unable to load user with ID '{0}'.", _userManager.GetUserId(User)));
 
             RequirePassword = await _userManager.HasPasswordAsync(user);
             return Page();
@@ -51,14 +48,14 @@ namespace MetalMarketPlace.Areas.Identity.Pages.Account.Manage
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound(_localizer.GetString("Unable to load user with ID '{0}'.", _userManager.GetUserId(User)));
 
             RequirePassword = await _userManager.HasPasswordAsync(user);
             if (RequirePassword)
             {
                 if (!await _userManager.CheckPasswordAsync(user, Input.Password))
                 {
-                    ModelState.AddModelError(string.Empty, "Password not correct.");
+                    ModelState.AddModelError(string.Empty, _localizer.GetString("Password not correct."));
                     return Page();
                 }
             }

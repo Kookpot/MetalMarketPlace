@@ -1,8 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 using System.Text.Encodings.Web;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using MetalMarketPlace.DataLayer.Entities;
+using MetalMarketPlace.Areas.Identity.Pages.Account.Manage.Models;
+using Microsoft.AspNetCore.Mvc.Localization;
 
 namespace MetalMarketPlace.Areas.Identity.Pages.Account.Manage
 {
@@ -19,17 +17,20 @@ namespace MetalMarketPlace.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<CompanyUser> _userManager;
         private readonly ILogger<EnableAuthenticatorModel> _logger;
         private readonly UrlEncoder _urlEncoder;
+        private readonly IHtmlLocalizer<EnableAuthenticatorModel> _localizer;
 
         private const string AuthenticatorUriFormat = "otpauth://totp/{0}:{1}?secret={2}&issuer={0}&digits=6";
 
         public EnableAuthenticatorModel(
             UserManager<CompanyUser> userManager,
             ILogger<EnableAuthenticatorModel> logger,
-            UrlEncoder urlEncoder)
+            UrlEncoder urlEncoder,
+            IHtmlLocalizer<EnableAuthenticatorModel> localizer)
         {
             _userManager = userManager;
             _logger = logger;
             _urlEncoder = urlEncoder;
+            _localizer = localizer;
         }
 
         public string SharedKey { get; set; }
@@ -43,24 +44,13 @@ namespace MetalMarketPlace.Areas.Identity.Pages.Account.Manage
         public string StatusMessage { get; set; }
 
         [BindProperty]
-        public InputModel Input { get; set; }
-
-        public class InputModel
-        {
-            [Required]
-            [StringLength(7, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
-            [DataType(DataType.Text)]
-            [Display(Name = "Verification Code")]
-            public string Code { get; set; }
-        }
+        public EnableAuthenticatorInputModel Input { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
-            {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
+                return NotFound(_localizer.GetString("Unable to load user with ID '{0}'.", _userManager.GetUserId(User)));
 
             await LoadSharedKeyAndQrCodeUriAsync(user);
 
@@ -71,9 +61,7 @@ namespace MetalMarketPlace.Areas.Identity.Pages.Account.Manage
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
-            {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
+                return NotFound(_localizer.GetString("Unable to load user with ID '{0}'.", _userManager.GetUserId(User)));
 
             if (!ModelState.IsValid)
             {
@@ -84,12 +72,10 @@ namespace MetalMarketPlace.Areas.Identity.Pages.Account.Manage
             // Strip spaces and hypens
             var verificationCode = Input.Code.Replace(" ", string.Empty).Replace("-", string.Empty);
 
-            var is2faTokenValid = await _userManager.VerifyTwoFactorTokenAsync(
-                user, _userManager.Options.Tokens.AuthenticatorTokenProvider, verificationCode);
-
+            var is2faTokenValid = await _userManager.VerifyTwoFactorTokenAsync(user, _userManager.Options.Tokens.AuthenticatorTokenProvider, verificationCode);
             if (!is2faTokenValid)
             {
-                ModelState.AddModelError("Input.Code", "Verification code is invalid.");
+                ModelState.AddModelError("Input.Code", _localizer.GetString("Verification code is invalid."));
                 await LoadSharedKeyAndQrCodeUriAsync(user);
                 return Page();
             }
@@ -98,7 +84,7 @@ namespace MetalMarketPlace.Areas.Identity.Pages.Account.Manage
             var userId = await _userManager.GetUserIdAsync(user);
             _logger.LogInformation("User with ID '{UserId}' has enabled 2FA with an authenticator app.", userId);
 
-            StatusMessage = "Your authenticator app has been verified.";
+            StatusMessage = _localizer.GetString("Your authenticator app has been verified.");
 
             if (await _userManager.CountRecoveryCodesAsync(user) == 0)
             {
@@ -107,9 +93,7 @@ namespace MetalMarketPlace.Areas.Identity.Pages.Account.Manage
                 return RedirectToPage("./ShowRecoveryCodes");
             }
             else
-            {
                 return RedirectToPage("./TwoFactorAuthentication");
-            }
         }
 
         private async Task LoadSharedKeyAndQrCodeUriAsync(CompanyUser user)
@@ -138,20 +122,14 @@ namespace MetalMarketPlace.Areas.Identity.Pages.Account.Manage
                 currentPosition += 4;
             }
             if (currentPosition < unformattedKey.Length)
-            {
                 result.Append(unformattedKey.Substring(currentPosition));
-            }
 
             return result.ToString().ToLowerInvariant();
         }
 
         private string GenerateQrCodeUri(string email, string unformattedKey)
         {
-            return string.Format(
-                AuthenticatorUriFormat,
-                _urlEncoder.Encode("MetalMarketPlace"),
-                _urlEncoder.Encode(email),
-                unformattedKey);
+            return string.Format(AuthenticatorUriFormat, _urlEncoder.Encode("MetalMarketPlace"), _urlEncoder.Encode(email), unformattedKey);
         }
     }
 }

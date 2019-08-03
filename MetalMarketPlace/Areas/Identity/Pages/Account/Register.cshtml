@@ -1,7 +1,8 @@
 ﻿@page
+@inject IViewLocalizer Localizer
 @model RegisterModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = Localizer["Register"];
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -17,7 +18,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fa fa-at"></i></span>
                     </div>
-                    <input asp-for="Input.Email" placeholder="Email" class="form-control" />
+                    <input asp-for="Input.Email" placeholder="@Localizer["Email"]" class="form-control" />
                     <div class="invalid-feedback" style="display:block;">
                         <span asp-validation-for="Input.Email" class="text-danger"></span>
                     </div>
@@ -28,7 +29,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fa fa-lock"></i></span>
                     </div>
-                    <input asp-for="Input.Password" placeholder="Password" class="form-control" />
+                    <input asp-for="Input.Password" placeholder="@Localizer["Password"]" class="form-control" />
                     <div class="invalid-feedback" style="display:block;">
                         <span asp-validation-for="Input.Password" class="text-danger"></span>
                     </div>
@@ -39,7 +40,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fa fa-lock"></i></span>
                     </div>
-                    <input asp-for="Input.ConfirmPassword" placeholder="Confirm Password" class="form-control" />
+                    <input asp-for="Input.ConfirmPassword" placeholder="@Localizer["Confirm Password"]" class="form-control" />
                     <div class="invalid-feedback" style="display:block;">
                         <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                     </div>
@@ -50,13 +51,13 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-building"></i></span>
                     </div>
-                    <input asp-for="Input.CompanyName" placeholder="Company name" class="form-control" />
+                    <input asp-for="Input.CompanyName" placeholder="@Localizer["Company name"]" class="form-control" />
                     <div class="invalid-feedback" style="display:block;">
                         <span asp-validation-for="Input.CompanyName" class="text-danger"></span>
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="submit" class="btn btn-primary">@Localizer["Register"]</button>
         </form>
     </div>
 </div>

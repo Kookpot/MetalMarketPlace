@@ -1,8 +1,9 @@
 ﻿@page
+@inject IViewLocalizer Localizer
 @model LoginModel
 
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = Localizer["Log in"];
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -10,7 +11,7 @@
     <div class="col-md-4">
         <section>
             <form id="account" method="post">
-                <h4>Use a local account to log in.</h4>
+                <h4>@Localizer["Use a local account to log in."]</h4>
                 <hr />
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
@@ -18,7 +19,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-at"></i></span>
                         </div>
-                        <input asp-for="Input.Email" placeholder="Email" class="form-control" />
+                        <input asp-for="Input.Email" placeholder="@Localizer["Email"]" class="form-control" />
                         <div class="invalid-feedback" style="display:block;">
                             <span asp-validation-for="Input.Email" class="text-danger"></span>
                         </div>
@@ -29,7 +30,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-lock"></i></span>
                         </div>
-                        <input asp-for="Input.Password" placeholder="Password" class="form-control" />
+                        <input asp-for="Input.Password" placeholder="@Localizer["Password"]" class="form-control" />
                         <div class="invalid-feedback" style="display:block;">
                             <span asp-validation-for="Input.Password" class="text-danger"></span>
                         </div>
@@ -44,14 +45,14 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Log in</button>
+                    <button type="submit" class="btn btn-primary">@Localizer["Log in"]</button>
                 </div>
                 <div class="form-group">
                     <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                        <a id="forgot-password" asp-page="./ForgotPassword">@Localizer["Forgot your password?"]</a>
                     </p>
                     <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">@Localizer["Register as a new user"]</a>
                     </p>
                 </div>
             </form>
@@ -59,21 +60,21 @@
     </div>
     <div class="col-md-6 col-md-offset-2">
         <section>
-            <h4>Use another service to log in.</h4>
+            <h4>@Localizer["Use another service to log in."]</h4>
             <hr />
             @{
                 <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post">
                     <div>
-                        <button type="submit" class="btn btn-social btn-facebook" name="provider" value="Facebook" title="Log in using your facebook account"><i class="fab fa-facebook-f"></i> | Connect with Facebook</button>
+                        <button type="submit" class="btn btn-social btn-facebook" name="provider" value="Facebook" title="@Localizer["Log in using your facebook account"]"><i class="fab fa-facebook-f"></i> | @Localizer["Connect with Facebook"]</button>
                     </div>
                     <div>
-                        <button type="submit" class="btn btn-social btn-twitter" name="provider" value="Twitter" title="Log in using your twitter account"><i class="fab fa-twitter"></i> | Connect with Twitter</button>
+                        <button type="submit" class="btn btn-social btn-twitter" name="provider" value="Twitter" title="@Localizer["Log in using your twitter account"]"><i class="fab fa-twitter"></i> | @Localizer["Connect with Twitter"] </button>
                     </div>
                     <div>
-                        <button type="submit" class="btn btn-social btn-google" name="provider" value="Google" title="Log in using your google+ account"><i class="fab fa-google-plus"></i> | Connect with Google+</button>
+                        <button type="submit" class="btn btn-social btn-google" name="provider" value="Google" title="@Localizer["Log in using your google+ account"]"><i class="fab fa-google-plus"></i> | @Localizer["Connect with Google+"]</button>
                     </div>
                     <div>
-                        <button type="submit" class="btn btn-social btn-microsoft" name="provider" value="Microsoft" title="Log in using your microsoft account"><i class="fab fa-microsoft"></i> | Connect with Microsoft</button>
+                        <button type="submit" class="btn btn-social btn-microsoft" name="provider" value="Microsoft" title="@Localizer["Log in using your microsoft account"]"><i class="fab fa-microsoft"></i> | @Localizer["Connect with Microsoft"]</button>
                     </div>
                 </form>
             }

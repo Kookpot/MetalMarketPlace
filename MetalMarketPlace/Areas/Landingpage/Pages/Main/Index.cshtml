@@ -1,8 +1,9 @@
 ﻿@page
+@inject IViewLocalizer Localizer
 @model MetalMarketPlace.Areas.Landingpage.Pages.Main.IndexModel
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = Localizer["Home Page"];
 }
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+    <h1 class="display-4">@Localizer["Welcome"]</h1>
 </div>

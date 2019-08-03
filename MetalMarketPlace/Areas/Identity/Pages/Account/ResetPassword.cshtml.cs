@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using MetalMarketPlace.DataLayer.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using MetalMarketPlace.Areas.Identity.Pages.Account.Models;
+using Microsoft.AspNetCore.Mvc.Localization;
 
 namespace MetalMarketPlace.Areas.Identity.Pages.Account
 {
@@ -12,41 +13,25 @@ namespace MetalMarketPlace.Areas.Identity.Pages.Account
     public class ResetPasswordModel : PageModel
     {
         private readonly UserManager<CompanyUser> _userManager;
+        private readonly IHtmlLocalizer<ResetPasswordModel> _localizer;
 
-        public ResetPasswordModel(UserManager<CompanyUser> userManager)
+        public ResetPasswordModel(UserManager<CompanyUser> userManager,
+             IHtmlLocalizer<ResetPasswordModel> localizer)
         {
             _userManager = userManager;
+            _localizer = localizer;
         }
 
         [BindProperty]
-        public InputModel Input { get; set; }
-
-        public class InputModel
-        {
-            [Required]
-            [EmailAddress]
-            public string Email { get; set; }
-
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
-            [DataType(DataType.Password)]
-            public string Password { get; set; }
-
-            [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-            public string ConfirmPassword { get; set; }
-
-            public string Code { get; set; }
-        }
+        public ResetPasswordInputModel Input { get; set; }
 
         public IActionResult OnGet(string code = null)
         {
             if (code == null)
-                return BadRequest("A code must be supplied for password reset.");
+                return BadRequest(_localizer.GetString("A code must be supplied for password reset."));
             else
             {
-                Input = new InputModel
+                Input = new ResetPasswordInputModel
                 {
                     Code = code
                 };
@@ -71,7 +56,7 @@ namespace MetalMarketPlace.Areas.Identity.Pages.Account
                 return RedirectToPage("./ResetPasswordConfirmation");
 
             foreach (var error in result.Errors)
-                ModelState.AddModelError(string.Empty, error.Description);
+                ModelState.AddModelError(string.Empty, _localizer.GetString(error.Description));
 
             return Page();
         }

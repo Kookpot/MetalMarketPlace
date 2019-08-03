@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Policy" xml:space="preserve">
+    <value>&lt;p&gt;De volgende algemene voorwaarden zijn van toepassing op al het gebruik van de website metalmarketplace.com en alle inhoud, diensten en producten die beschikbaar zijn via de website, inclusief, maar niet beperkt tot, het klantengedeelte (gezamenlijk de site genoemd).&lt;/p&gt;
+&lt;p&gt;De site is eigendom van en wordt beheerd door tIPtec (gezamenlijk de operator genoemd). De site wordt aangeboden onder voorbehoud van uw aanvaarding zonder wijziging van alle voorwaarden en bepalingen hierin en alle andere operationele regels, beleid inclusief, zonder beperking, het privacybeleid en de procedures van de exploitant die van tijd tot tijd op deze site kunnen worden gepubliceerd door de Operator (gezamenlijk de "Overeenkomst"). De site wordt aangeboden onder voorbehoud van uw aanvaarding zonder wijziging van alle voorwaarden en bepalingen hierin en alle andere operationele regels, beleid inclusief, zonder beperking, het privacybeleid en de procedures van de exploitant die van tijd tot tijd op deze site kunnen worden gepubliceerd door de Operator (gezamenlijk de "Overeenkomst").&lt;/p&gt;
+&lt;p&gt;Lees deze overeenkomst zorgvuldig door voordat u de site bezoekt of gebruikt. Door een deel van de website te bezoeken of te gebruiken, gaat u ermee akkoord gebonden te zijn aan de voorwaarden van deze overeenkomst. Als u niet akkoord gaat met alle bepalingen en voorwaarden van deze overeenkomst, hebt u geen toegang tot de site of maakt u geen gebruik van services. De site is alleen beschikbaar voor personen die ten minste 13 jaar oud zijn. &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Client area account&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;U bent verantwoordelijk voor het handhaven van de beveiliging van uw klantgebiedaccount en u bent volledig verantwoordelijk voor alle activiteiten die plaatsvinden onder het account en alle andere acties die in verband met het account worden ondernomen. U moet de Operator onmiddellijk op de hoogte stellen van elk ongeautoriseerd gebruik van uw account of andere beveiligingsinbreuken. De exploitant is niet aansprakelijk voor enig handelen of nalaten door u, met inbegrip van schade van welke aard dan ook die is ontstaan ​​als gevolg van dergelijk handelen of nalaten.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Bijdrage aan de website&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Als u ergens op de site opmerkingen achterlaat, materiaal op de site plaatst, links op de site plaatst, of anderszins materiaal beschikbaar stelt (of een derde partij toestaat) door middel van de site (dergelijk materiaal, "Inhoud"), U bent volledig verantwoordelijk voor de inhoud van en eventuele schade die voortvloeit uit die Inhoud. Dat is het geval ongeacht of de betreffende inhoud tekst, afbeeldingen, audio of computersoftware is. Door Inhoud beschikbaar te stellen, verklaart en garandeert u dat:
+&lt;ul&gt;
+        &lt;li&gt; Het downloaden, kopiëren en gebruiken van de Inhoud maakt geen inbreuk op de eigendomsrechten, inclusief maar niet beperkt tot het auteursrecht, octrooien, handelsmerken of handelsgeheimen van derden &lt;/li&gt;
+        &lt;li&gt; U hebt alle licenties van derden met betrekking tot de Inhoud volledig nageleefd en alle dingen gedaan die nodig zijn om alle vereiste voorwaarden met succes door te geven aan eindgebruikers &lt;/li&gt;
+        &lt;li&gt; De Inhoud bevat of installeert geen virussen, wormen, malware, Trojaanse paarden of andere schadelijke of destructieve inhoud &lt;/li&gt;
+        &lt;li&gt; De inhoud is geen spam, is geen machine of willekeurig gegenereerd en bevat geen onethische of ongewenste commerciële inhoud die is ontworpen om verkeer naar sites van derden te stimuleren of de zoekmachine-ranglijst van sites van derden te stimuleren, of om onwettige handelingen (zoals phishing) of misleidende ontvangers met betrekking tot de bron van het materiaal (zoals spoofing) &lt;/li&gt;
+        &lt;li&gt; De inhoud is niet pornografisch, lasterlijk of lasterlijk, bevat geen bedreigingen of zet aan tot geweld jegens personen of entiteiten en schendt de privacy- of publiciteitsrechten van derden niet &lt;/li&gt;
+    &lt;/ul&gt;
+&lt;p&gt; Door Inhoud aan de Operator in te dienen voor opname op onze Site, verleent u de Operator een wereldwijde, royaltyvrije en niet-exclusieve licentie om de Inhoud te reproduceren, te wijzigen, aan te passen en te publiceren met als doel het weergeven, distribueren , promotie, marketing of ander rechtmatig gebruik. &lt;/p&gt;
+&lt;p&gt;Zonder enige beperking van deze verklaringen of garanties, heeft de Operator het recht (hoewel niet de verplichting) om, naar eigen goeddunken van de Operator (i) inhoud te weigeren of te verwijderen die, naar de redelijke mening van de Operator, een beleid schendt of op enigerlei wijze schadelijk of aanstootgevend is, of (ii) de toegang tot en het gebruik van de Site voor enige persoon of entiteit om welke reden dan ook naar eigen goeddunken beëindigen of weigeren. De Operator is niet verplicht om terugbetaling te doen van eerder betaalde bedragen onder deze omstandigheden.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt; Welke informatie verzamelen we? &lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;We kunnen persoonlijk identificeerbare informatie van u op verschillende manieren verzamelen, inclusief via online formulieren voor het bestellen van producten en diensten, en andere gevallen waarin u wordt uitgenodigd om dergelijke informatie aan te bieden, inclusief, maar niet beperkt tot, wanneer u zich registreert op onze site, plaats een bestelling of abonneer u op onze nieuwsbrief. Wanneer u op onze site bestelt of zich registreert, wordt u mogelijk gevraagd om uw: naam, e-mailadres, postadres, telefoonnummer of creditcardgegevens in te voeren.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt; Waarvoor gebruiken wij uw gegevens?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Alle informatie die we van u verzamelen, kan worden gebruikt om uw ervaring te personaliseren, onze website te verbeteren, de klantenservice te verbeteren, transacties te verwerken, periodieke e-mails te verzenden. Het e-mailadres dat u opgeeft voor de orderverwerking wordt alleen gebruikt om u informatie en updates over uw bestelling te sturen. Als u besluit u aan te melden voor onze mailinglijst, ontvangt u e-mails met bedrijfsnieuws, updates, gerelateerde product- of service-informatie, enz. Als u zich op enig moment wilt afmelden voor het ontvangen van toekomstige e-mails, nemen we gedetailleerde afmeldingen op. instructies onderaan elke e-mail.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt; Hoe beschermen we uw informatie? &lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;We implementeren verschillende beveiligingsmaatregelen om de veiligheid van uw persoonlijke gegevens te behouden wanneer u een bestelling plaatst of toegang krijgt tot uw persoonlijke gegevens.&lt;/p&gt;
+&lt;p&gt;Wij bieden het gebruik van een beveiligde server. Alle geleverde gevoelige / kredietinformatie wordt verzonden via Secure Socket Layer (SSL) -technologie en vervolgens gecodeerd in onze database met betalingsgateway-providers, zodat ze alleen toegankelijk zijn voor geautoriseerde personen met speciale toegangsrechten voor dergelijke systemen en verplicht zijn om de informatie vertrouwelijk te houden. Na een transactie worden uw privégegevens (creditcards, sofi-nummers, financiën, etc.) niet opgeslagen op onze servers. &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Betalingen en terugbetalingen&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;De site biedt producten en diensten te koop aan. De site verwerkt betalingen voor deze producten niet rechtstreeks, maar verwijst deze betalingen liever door naar een beveiligde externe betalingsprocessor die alle aspecten van het betalingsproces afhandelt. Betalingsproblemen of geschillen moeten rechtstreeks met de betalingsverwerker worden opgelost. Zodra de betalingsverwerker ons heeft laten weten dat een betaling is uitgevoerd en dat de betaling met succes een fraudebeoordeling heeft doorstaan, wordt zo snel mogelijk toegang verleend tot het product of de service die wordt gekocht. We kunnen echter geen garanties bieden voor tijdigheid of onmiddellijkheid. Gratis accounts krijgen beperkte toegang tot de site waarmee de gebruiker alle beschikbare services kan testen voordat hij een betaling uitvoert en bepaalt of de aangeboden services voldoen aan de behoeften van de gebruiker. U kunt alleen binnen 7 dagen na de betaling een terugbetaling aanvragen als uw browser geen javascript ondersteunt en u onze beleidsgenerator niet kunt gebruiken, anders worden er geen restituties aangeboden. Houd er rekening mee dat ons systeem uw browsernaam, versie en javascript-ondersteuning bijhoudt, dus we zullen elk verzoek om legitimiteit verifiëren.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Verantwoordelijkheid van websitebezoekers&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Door de Site te exploiteren, verklaart of impliceert de Operator niet dat hij alle of alle ingebrachte inhoud onderschrijft, of dat hij van mening is dat dergelijk materiaal nauwkeurig, nuttig of niet schadelijk is. U bent zelf verantwoordelijk voor het nemen van voorzorgsmaatregelen om uzelf en uw computersystemen te beschermen tegen virussen, wormen, Trojaanse paarden en andere schadelijke of destructieve inhoud. De site kan inhoud bevatten die aanstootgevend, onfatsoenlijk of anderszins aanstootgevend is, evenals inhoud die technische onnauwkeurigheden, typografische fouten en andere fouten bevat. De exploitant aanvaardt geen enkele verantwoordelijkheid voor eventuele schade die voortvloeit uit het gebruik door bezoekers van de site.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Maken we informatie bekend aan externe partijen?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Wij verkopen, verhandelen of dragen uw persoonlijk identificeerbare informatie niet over aan derden, behalve om producten of diensten te leveren waar u om hebt gevraagd. Dit omvat geen vertrouwde derde partijen die ons helpen bij het beheren van onze website, het uitvoeren van onze activiteiten of het verlenen van service aan u, zolang deze partijen ermee instemmen deze informatie vertrouwelijk te houden. We kunnen uw informatie ook vrijgeven wanneer we van mening zijn dat vrijgave geschikt is om te voldoen aan de wet, ons sitebeleid af te dwingen of de rechten, eigendom of veiligheid van ons of anderen te beschermen. Niet-persoonlijk identificeerbare bezoekersinformatie kan echter aan andere partijen worden verstrekt voor marketing, reclame of ander gebruik.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt; Auteursrechtschending en DMCA-beleid &lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Aangezien de Operator anderen vraagt ​​om zijn intellectuele eigendomsrechten te respecteren, respecteert hij de intellectuele eigendomsrechten van anderen. Als u van mening bent dat materiaal dat zich op de Site bevindt of waarnaar het verwijst, uw auteursrecht schendt, wordt u aangemoedigd om de Operator op de hoogte te stellen in overeenstemming met het algemene DMCA-beleid. De Operator reageert op al deze kennisgevingen, inclusief indien nodig of gepast door het inbreukmakende materiaal te verwijderen of alle links naar het inbreukmakende materiaal uit te schakelen. In het geval van een bezoeker die inbreuk maakt op of herhaaldelijk inbreuk maakt op de auteursrechten of andere intellectuele eigendomsrechten van de Operator of anderen, kan de Operator naar eigen goeddunken de toegang tot en het gebruik van de Site beëindigen of weigeren. In het geval van een dergelijke beëindiging is de Operator niet verplicht om een ​​terugbetaling te doen van de eerder aan de Operator betaalde bedragen. U stemt er verder mee in geen eigendomskennisgevingen te wijzigen of te verwijderen van materialen die van de site zijn gedownload. U moet onze copyrightkennisgeving behouden in het beleid dat u maakt, tenzij u een premiumbeleid hebt gekocht, in welk geval u onze copyrightkennisgeving van uw gegenereerde beleid kunt verwijderen.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt; Gebruiken we cookies?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Ja, we gebruiken cookies (kleine stukjes informatie die uw browser opslaat op de harde schijf van uw computer) om ons te helpen de items in uw winkelwagen te onthouden en te verwerken, uw voorkeuren voor toekomstige bezoeken te begrijpen en op te slaan en verzamelde gegevens samen te stellen over siteverkeer en site-interactie, zodat we in de toekomst betere site-ervaringen en tools kunnen bieden. We kunnen contracten sluiten met externe serviceproviders om ons te helpen onze sitebezoekers beter te begrijpen. Deze dienstverleners mogen de namens ons verzamelde informatie niet gebruiken, behalve om ons te helpen ons bedrijf te leiden en te verbeteren.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Links van derden&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Onze site kan links naar sites van derden bevatten. Deze sites van derden hebben afzonderlijke en onafhankelijke servicevoorwaarden en privacybeleid. Wij zijn daarom niet verantwoordelijk of aansprakelijk voor de inhoud en activiteiten van deze gelinkte sites. We proberen echter de integriteit van onze site te beschermen en verwelkomen alle feedback over deze sites.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt; Intellectuele eigendom&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Deze Overeenkomst draagt ​​van de Operator geen intellectueel eigendom van de Operator of van derden over en alle rechten, eigendomsrechten en belangen in en op dergelijk eigendom blijven (tussen de partijen) uitsluitend bij de Operator. Het operatorlogo en alle andere handelsmerken, dienstmerken, grafische afbeeldingen en logo's die worden gebruikt in verband met de operator of de site zijn handelsmerken of geregistreerde handelsmerken van de operator of de licentiegevers van de operator. Andere handelsmerken, dienstmerken, grafische afbeeldingen en logo's die in verband met de site worden gebruikt, kunnen handelsmerken zijn van andere derde partijen. Uw gebruik van de site verleent u geen recht of licentie om de exploitant of handelsmerken van derden te reproduceren of anderszins te gebruiken.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Wijzigingen&lt;/strong&gt;&lt;/ p&gt;
+&lt;p&gt;De Operator behoudt zich het recht voor om naar eigen goeddunken enig deel van deze Overeenkomst te wijzigen of te vervangen. Het is uw verantwoordelijkheid om deze Overeenkomst regelmatig te controleren op wijzigingen. Uw voortdurende gebruik van of toegang tot de Site na het plaatsen van eventuele wijzigingen in deze Overeenkomst houdt aanvaarding van die wijzigingen in. De Operator kan in de toekomst ook nieuwe diensten en / of functies aanbieden via de Site (inclusief de release van nieuwe hulpmiddelen en middelen). Dergelijke nieuwe functies en / of diensten vallen onder de voorwaarden van deze Overeenkomst.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Beëindiging&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;De Operator kan uw toegang tot de gehele of een deel van de Site op elk moment beëindigen, met of zonder reden, met of zonder kennisgeving, onmiddellijk van kracht. Als u deze overeenkomst wenst te beëindigen, kunt u gewoon stoppen met het gebruik van de site. Niettegenstaande het voorgaande, als u een klantaccount hebt, kan een dergelijk account alleen door de Operator worden beëindigd als u deze Overeenkomst wezenlijk schendt en een dergelijke schending niet binnen 14 (veertien) dagen vanaf de kennisgeving van de Operator aan u verhelpt; op voorwaarde dat de Operator de Site onmiddellijk kan beëindigen als onderdeel van een algemene stopzetting van onze service. Alle bepalingen van deze Overeenkomst die naar hun aard de beëindiging moeten overleven, blijven van kracht na de beëindiging, met inbegrip van, maar niet beperkt tot, bepalingen inzake eigendom, afwijzing van garantie, vrijwaring en aansprakelijkheidsbeperkingen.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt; Afwijzing van garanties &lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;De site wordt aangeboden "zoals hij is". De Operator en zijn leveranciers en licentiegevers wijzen hierbij alle garanties van welke aard dan ook af, expliciet of impliciet, inclusief, zonder beperking, de garanties van verkoopbaarheid, geschiktheid voor een bepaald doel en niet-inbreuk. Noch de Operator, noch zijn leveranciers en licentiegevers geven enige garantie dat de Site foutloos zal zijn of dat de toegang daartoe ononderbroken of ononderbroken zal zijn. U begrijpt dat het uw verantwoordelijkheid is om ervoor te zorgen dat het beleid dat u maakt volledig en nauwkeurig is en voldoet aan de specifieke behoeften van u en uw bedrijf. We zijn niet aansprakelijk of verantwoordelijk voor enig beleid dat is gemaakt met behulp van onze services en we geven geen verklaringen of garanties, expliciet of impliciet, dat het beleid dat is gemaakt met onze service volledig, nauwkeurig of vrij van fouten of weglatingen is.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt; Beperking van aansprakelijkheid&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;De exploitant is geen advocaat of advocatenkantoor en houdt zich niet bezig met het beoefenen van recht of juridisch advies of juridische vertegenwoordiging. Alle informatie, producten en diensten die op de site worden aangeboden, zijn alleen voor informatieve en zelfhulpdoeleinden en zijn niet bedoeld als vervanging voor professioneel juridisch advies.&lt;/p&gt;
+&lt;p&gt;In geen geval zal de Operator, of zijn leveranciers of licentiegevers, aansprakelijk zijn met betrekking tot enig onderwerp van deze overeenkomst onder een contract, nalatigheid, strikte aansprakelijkheid of andere juridische of billijke theorie voor: (i) speciale, incidentele of gevolgschade; (ii) de kosten van aanschaf of vervanging van producten of diensten; (iii) voor onderbreking van gebruik of verlies of corruptie van gegevens; of (iv) voor bedragen die de vergoedingen overschrijden die door u aan de Operator zijn betaald onder deze overeenkomst. De exploitant is niet aansprakelijk voor storingen of vertragingen als gevolg van zaken buiten zijn redelijke controle. Het voorgaande is niet van toepassing voor zover verboden door toepasselijk recht. De exploitant is niet aansprakelijk voor speciale of gevolgschade die voortvloeit uit het gebruik van, of het onvermogen om de op deze site aangeboden diensten en producten te gebruiken, of de uitvoering van de diensten en producten.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt; Algemene weergave en garantie&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;U verklaart en garandeert dat (i) uw gebruik van de site in strikte overeenstemming is met deze overeenkomst en met alle toepasselijke wet- en regelgeving (inclusief maar niet beperkt tot lokale wetgeving of regelgeving in uw land, staat, stad of andere overheidsgebied, met betrekking tot online gedrag en acceptabele inhoud, en met inbegrip van alle toepasselijke wetten met betrekking tot de overdracht van technische gegevens die zijn geëxporteerd vanuit het land waar u woont) en (ii) uw gebruik van de Site maakt geen inbreuk op of misbruik van de intellectuele eigendomsrechten van enige derde partij.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Schadeloosstelling&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;U stemt ermee in om de Operator, zijn contractanten en zijn licentiegevers en hun respectieve directeuren, functionarissen, werknemers en agenten schadeloos te stellen en te vrijwaren tegen alle claims en kosten, inclusief advocatenkosten, die voortvloeien uit uw gebruik van de site, inclusief maar niet beperkt tot uw schending van deze overeenkomst. &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Overig&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Deze Overeenkomst vormt de gehele overeenkomst tussen de Operator en u betreffende het onderwerp hiervan, en ze kunnen alleen worden gewijzigd door een schriftelijke wijziging ondertekend door een geautoriseerde bestuurder van de Operator, of door het plaatsen van een herziene versie door de Operator . Behalve voor zover van toepassing, indien van toepassing, anders is bepaald, is deze Overeenkomst, elke toegang tot of gebruik van de Site onderworpen aan de Belgische wetgeving, met uitzondering van de bepalingen met betrekking tot wetsconflicten, en de juiste locatie voor eventuele geschillen die voortvloeien uit van of met betrekking tot een van dezelfde zijn de staats- en federale rechtbanken in België. Als een deel van deze Overeenkomst ongeldig of niet-afdwingbaar wordt geacht, zal dat deel worden geïnterpreteerd als een afspiegeling van de oorspronkelijke bedoeling van de partijen en blijven de resterende delen volledig van kracht. Een afstand door een van de partijen van een voorwaarde of voorwaarde van deze Overeenkomst of een inbreuk daarop, in geen enkel geval, zal niet afzien van een dergelijke voorwaarde of een daaropvolgende inbreuk daarop. U kunt uw rechten onder deze Overeenkomst toewijzen aan elke partij die instemt met en ermee instemt gebonden te zijn door de algemene voorwaarden; de Operator kan zijn rechten onder deze Overeenkomst zonder voorwaarden overdragen. Deze Overeenkomst is bindend voor en komt ten goede aan de partijen, hun opvolgers en toegestane rechtverkrijgenden.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Wijzigingen in onze voorwaarden en ons privacybeleid&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Van tijd tot tijd kunnen we dit beleid aanpassen. Wijzigingen zullen naar eigen goeddunken worden aangebracht. Gebruikers van de site worden aangemoedigd om dit beleid op dergelijke wijzigingen te controleren. Uw voortdurende gebruik van deze site na wijzigingen in dit beleid betekent dat u de wijzigingen accepteert. &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt; Contact met ons opnemen&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Vragen over deze servicevoorwaarden en ons privacybeleid moeten aan ons worden gericht via ons contactformulier.&lt;/p&gt;
+&lt;p&gt;Dit document is het laatst aangepast op 31 juli, 2019&lt;/p&gt;</value>
+  </data>
+  <data name="Privacy Policy" xml:space="preserve">
+    <value>Beleid rond privacy</value>
+  </data>
+</root>

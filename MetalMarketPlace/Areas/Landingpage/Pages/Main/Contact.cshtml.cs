@@ -1,12 +1,13 @@
 using System;
-using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using MailKit.Net.Smtp;
+using MetalMarketPlace.Areas.Landingpage.Pages.Main.Models;
 using MetalMarketPlace.ConfigModels;
 using MetalMarketPlace.DataLayer.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MimeKit;
 using reCAPTCHA.AspNetCore;
@@ -19,48 +20,26 @@ namespace MetalMarketPlace.Areas.Landingpage.Pages.Main
         private readonly EmailConfiguration _emailConfiguration;
         private readonly IRecaptchaService _recaptcha;
         private readonly UserManager<CompanyUser> _userManager;
+        private readonly IHtmlLocalizer<ContactModel> _localizer;
 
-        public ContactModel(EmailConfiguration emailConfiguration, IRecaptchaService recaptcha, UserManager<CompanyUser> userManager)
+        public ContactModel(EmailConfiguration emailConfiguration, IRecaptchaService recaptcha, UserManager<CompanyUser> userManager,
+            IHtmlLocalizer<ContactModel> localizer)
         {
             _emailConfiguration = emailConfiguration;
             _recaptcha = recaptcha;
             _userManager = userManager;
+            _localizer = localizer;
         }
 
         [BindProperty]
-        public InputModel Input { get; set; }
+        public ContactInputModel Input { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
 
-        public class InputModel
-        {
-            [Required]
-            [DataType(DataType.Text)]
-            [StringLength(100, ErrorMessage = "The {0} must be at max {1} characters long.")]
-            [Display(Name = "Name")]
-            public string Name { get; set; }
-
-            [Required]
-            [EmailAddress]
-            [Display(Name = "Email address")]
-            public string Email { get; set; }
-
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at max {1} characters long.")]
-            [DataType(DataType.Text)]
-            [Display(Name = "Subject")]
-            public string Subject { get; set; }
-
-            [DataType(DataType.Text)]
-            [StringLength(10000, ErrorMessage = "The {0} must be at max {1} characters long.")]
-            [Display(Name = "Message")]
-            public string Message { get; set; }
-        }
-
         public async Task OnGet()
         {
-            Input = new InputModel();
+            Input = new ContactInputModel();
             var user = await _userManager.GetUserAsync(User);
             if (user != null)
                 Input.Email = await _userManager.GetEmailAsync(user);
@@ -71,7 +50,7 @@ namespace MetalMarketPlace.Areas.Landingpage.Pages.Main
             var recaptcha = await _recaptcha.Validate(Request);
             if (!recaptcha.success)
             {
-                ModelState.AddModelError(string.Empty, "There was an error validating recatpcha. Please try again!");
+                ModelState.AddModelError(string.Empty, _localizer.GetString("There was an error validating recatpcha. Please try again!"));
                 return Page();
             }
 
@@ -96,7 +75,7 @@ namespace MetalMarketPlace.Areas.Landingpage.Pages.Main
                 await emailClient.SendAsync(message);
                 await emailClient.DisconnectAsync(true);
             }
-            StatusMessage = "Your enquiry has been send to us. We will try to contact you with the needed assistance as soon as possible. Thank you!";
+            StatusMessage = _localizer.GetString("Your enquiry has been send to us. We will try to contact you with the needed assistance as soon as possible. Thank you!");
             Input.Message = string.Empty;
             Input.Subject = string.Empty;
             return Page();

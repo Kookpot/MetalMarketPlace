@@ -1,14 +1,15 @@
 ﻿@page
+@inject IViewLocalizer Localizer
 @model ExternalLoginsModel
 @{
-    ViewData["Title"] = "Manage your external logins";
+    ViewData["Title"] = Localizer["Manage your external logins"];
     ViewData["ActivePage"] = ManageNavPages.ExternalLogins;
 }
 
 <partial name="_StatusMessage" for="StatusMessage" />
 @if (Model.CurrentLogins?.Count > 0)
 {
-    <h4>Registered Logins</h4>
+    <h4>@Localizer["Registered Logins"]</h4>
     <table class="table">
         <tbody>
             @foreach (var login in Model.CurrentLogins)
@@ -22,7 +23,7 @@
                                 <div>
                                     <input asp-for="@login.LoginProvider" name="LoginProvider" type="hidden" />
                                     <input asp-for="@login.ProviderKey" name="ProviderKey" type="hidden" />
-                                    <button type="submit" class="btn btn-primary" title="Remove this @login.ProviderDisplayName login from your account">Remove</button>
+                                    <button type="submit" class="btn btn-primary" title="@Localizer["Remove this"] @login.ProviderDisplayName @Localizer["login from your account"]">@Localizer["Remove"]</button>
                                 </div>
                             </form>
                         }
@@ -38,16 +39,38 @@
 }
 @if (Model.OtherLogins?.Count > 0)
 {
-    <h4>Add another service to log in.</h4>
-    <hr />
-    <form id="link-login-form" asp-page-handler="LinkLogin" method="post" class="form-horizontal">
-        <div id="socialLoginList">
-            <p>
+    <h4>@Localizer["Add another service to log in."]</h4>
+        <hr />
+        <form id="link-login-form" asp-page-handler="LinkLogin" method="post" class="form-horizontal">
+            <div id="socialLoginList">
+
                 @foreach (var provider in Model.OtherLogins)
                 {
-                    <button id="link-login-button" type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                    if (provider.Name == "Facebook")
+                    {
+                        <div>
+                            <button type="submit" class="btn btn-social btn-facebook" name="provider" value="Facebook" title="@Localizer["Log in using your facebook account"]"><i class="fab fa-facebook-f"></i> | @Localizer["Connect with Facebook"]</button>
+</div>
+                    }
+                    else if (provider.Name == "Twitter")
+                    {
+                        <div>
+                            <button type="submit" class="btn btn-social btn-twitter" name="provider" value="Twitter" title="@Localizer["Log in using your twitter account"]"><i class="fab fa-twitter"></i> | @Localizer["Connect with Twitter"]</button>
+</div>
+                    }
+                    else if (provider.Name == "Google")
+                    {
+                        <div>
+                            <button type="submit" class="btn btn-social btn-google" name="provider" value="Google" title="@Localizer["Log in using your google+ account"]"><i class="fab fa-google-plus"></i> | @Localizer["Connect with Google+"]</button>
+</div>
+                    }
+                    else if (provider.Name == "Microsoft")
+                    {
+                        <div>
+                            <button type="submit" class="btn btn-social btn-microsoft" name="provider" value="Microsoft" title="@Localizer["Log in using your microsoft account"]"><i class="fab fa-microsoft"></i> | @Localizer["Connect with Microsoft"]</button>
+</div>
+                    }
                 }
-            </p>
-        </div>
-    </form>
-}
+            </div>
+        </form>
+        }

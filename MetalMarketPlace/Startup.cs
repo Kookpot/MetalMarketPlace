@@ -15,6 +15,10 @@ using MetalMarketPlace.ConfigModels;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using MetalMarketPlace.Helpers;
 using MetalMarketPlace.DataLayer.Entities;
+using Microsoft.AspNetCore.Mvc.Razor;
+using System.Collections.Generic;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace MetalMarketPlace
 {
@@ -62,7 +66,9 @@ namespace MetalMarketPlace
             services.Configure<RecaptchaSettings>(Configuration.GetSection("RecaptchaSettings"));
             services.AddTransient<IRecaptchaService, RecaptchaService>();
             services.AddSingleton(Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
-        
+
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+
             // Add framework services.
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddRazorPagesOptions(options =>
@@ -71,7 +77,9 @@ namespace MetalMarketPlace
                     options.Conventions.AddAreaPageRoute("Landingpage", "/Main/Index", string.Empty);
                     options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage");
                     options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
-                });
+                })
+                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+                .AddDataAnnotationsLocalization();
 
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
                 services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
@@ -81,7 +89,8 @@ namespace MetalMarketPlace
             services.AddDefaultIdentity<CompanyUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<DatabaseContext>()
-                .AddDefaultTokenProviders();
+                .AddDefaultTokenProviders()
+                .AddErrorDescriber<MultilanguageIdentityErrorDescriber>();
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -120,6 +129,19 @@ namespace MetalMarketPlace
                 options.SlidingExpiration = true;
             });
 
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new List<CultureInfo>
+                    {
+                        new CultureInfo("en-US"),
+                        new CultureInfo("nl-BE")
+                    };
+
+                options.DefaultRequestCulture = new RequestCulture("en-US");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+            });
+
             services.AddSingleton<IEmailSender, EmailSender>();
 
             services.BuildServiceProvider().GetService<DatabaseContext>().Database.Migrate();
@@ -131,13 +153,29 @@ namespace MetalMarketPlace
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
                 app.UseBrowserLink();
             }
             else
             {
-                app.UseExceptionHandler("Landingpage/Main/Error");
+                app.UseExceptionHandler("/Landingpage/Main/Error");
                 app.UseHsts();
             }
+
+            var supportedCultures = new[]
+            {
+                new CultureInfo("en-US"),
+                new CultureInfo("nl-BE"),
+            };
+
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("en-US"),
+                // Formatting numbers, dates, etc.
+                SupportedCultures = supportedCultures,
+                // UI strings that we have localized.
+                SupportedUICultures = supportedCultures
+            });
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -145,7 +183,12 @@ namespace MetalMarketPlace
 
             app.UseAuthentication();
 
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
         }
     }
 }

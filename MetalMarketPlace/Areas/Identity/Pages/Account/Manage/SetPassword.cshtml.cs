@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using MetalMarketPlace.Areas.Identity.Pages.Account.Manage.Models;
 using MetalMarketPlace.DataLayer.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace MetalMarketPlace.Areas.Identity.Pages.Account.Manage
@@ -11,40 +12,29 @@ namespace MetalMarketPlace.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<CompanyUser> _userManager;
         private readonly SignInManager<CompanyUser> _signInManager;
+        private readonly IHtmlLocalizer<SetPasswordModel> _localizer;
 
         public SetPasswordModel(
             UserManager<CompanyUser> userManager,
-            SignInManager<CompanyUser> signInManager)
+            SignInManager<CompanyUser> signInManager,
+            IHtmlLocalizer<SetPasswordModel> localizer)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _localizer = localizer;
         }
 
         [BindProperty]
-        public InputModel Input { get; set; }
+        public SetPasswordInputModel Input { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
-
-        public class InputModel
-        {
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
-            [DataType(DataType.Password)]
-            [Display(Name = "New password")]
-            public string NewPassword { get; set; }
-
-            [DataType(DataType.Password)]
-            [Display(Name = "Confirm new password")]
-            [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
-            public string ConfirmPassword { get; set; }
-        }
-
+        
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound(_localizer.GetString("Unable to load user with ID '{0}'.", _userManager.GetUserId(User)));
 
             var hasPassword = await _userManager.HasPasswordAsync(user);
             if (hasPassword)
@@ -60,19 +50,19 @@ namespace MetalMarketPlace.Areas.Identity.Pages.Account.Manage
 
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound(_localizer.GetString("Unable to load user with ID '{0}'.", _userManager.GetUserId(User)));
 
             var addPasswordResult = await _userManager.AddPasswordAsync(user, Input.NewPassword);
             if (!addPasswordResult.Succeeded)
             {
                 foreach (var error in addPasswordResult.Errors)
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    ModelState.AddModelError(string.Empty, _localizer.GetString(error.Description));
 
                 return Page();
             }
 
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your password has been set.";
+            StatusMessage = _localizer.GetString("Your password has been set.");
 
             return RedirectToPage();
         }
